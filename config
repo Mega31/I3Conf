@@ -36,7 +36,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec rofi  -show run -show icons -lines 5 -eh 2 -width 100 -padding 500 -opacity "80" -bw 0 -bc "$base01" -bg "$base02" -fg "$base07" -hlbg "$base05" -columns 2 -font "System San Francisco Display 18" -hlfg "#9575cd"      
+bindsym $mod+d  exec rofi  -show run -show icons -lines 5 -eh 2 -width 100 -padding 10 -opacity "80" -bw 0 -bc "$base01" -bg "$base02" -fg "$base07" -hlbg "$base05" -columns 2 -font "System San Francisco Display 18" -hlfg "#9575cd"      
 	
 #dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
@@ -98,14 +98,14 @@ bindsym $mod+a focus parent
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1.Terminal"
 set $ws2 "2.firefox"
-set $ws3 "3.thunar"
+set $ws3 "3.IDE"
 set $ws4 "4.stremio"
 set $ws5 "5.telegram"
-set $ws6 "6.eclipse"
-set $ws7 "7"
+set $ws6 "6.File Manager"
+set $ws7 "7.Skype"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "10"
+set $ws10 "10.Spotify"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -166,27 +166,60 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 
+#═╗ ╦┬─┐┌─┐┌─┐┌─┐┬ ┬┬─┐┌─┐┌─┐┌─┐
+#╔╩╦╝├┬┘├┤ └─┐│ ││ │├┬┘│  ├┤ └─┐
+#╩ ╚═┴└─└─┘└─┘└─┘└─┘┴└─└─┘└─┘└─┘
+#setting colors
+#set $red #ff0000
+#Picking colors from xresources.
+set_from_resource $foreground           i3wm.foreground     #fce8c3
+set_from_resource $background           i3wm.background     #1c1b19
+set_from_resource $background_light     i3wm.color8         #2d2c29
+set_from_resource $red                  i3wm.color1         #ef2f27
+set_from_resource $red_bright           i3wm.color9         #f75341
+set_from_resource $green                i3wm.color2         #519f50
+set_from_resource $green_bright         i3wm.color10        #98bc37
+set_from_resource $yellow               i3wm.color3         #fbb829
+set_from_resource $orange               i3wm.color11        #fed06e
+set_from_resource $blue                 i3wm.color4         #2c78bf
+set_from_resource $blue_bright          i3wm.color12        #68A8E4
+set_from_resource $magenta              i3wm.color5         #e02c6d
+set_from_resource $magenta_bright       i3wm.color13        #ff5c8f
+set_from_resource $cyan                 i3wm.color6         #0aaeb3
+set_from_resource $cyan_bright          i3wm.color14        #53fde9
+set_from_resource $white                i3wm.color7         #918175
+
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
 
-        status_command i3blocks -c  ~/.config/i3/i3blocks.conf
-	position top
-		colors	{		#Border #Backgr	#Text	#Indicator
-		separator		#ff69b4
-		statusline		#fdfefe
-		background		#85929e
-		focused_background	#000000
-		focused_workspace	#ff69b4	#000000	#fdfefe
-#		active_workspace	#000000	#000000	#fdfefe
-		inactive_workspace	#000000	#000000	#fdfefe
-		urgent_workspace	#c0392b	#000000 #fdfefe
-			}
 
+binding_mode_indicator yes
+ #font pango: Monofurbold Nerd Font 10
+  position top
+  #strip_workspace_numbers yes
+  colors {
+          background $background
+          statusline $white
+          separator  $white
 
+          focused_workspace  $background    $green    $background
+          active_workspace   $background    $blue     $background
+          inactive_workspace $background    $white    $background
+          urgent_workspace   $background    $red      $background
+          binding_mode       $background    $cyan     $background
 
+        }
+ status_command i3blocks -c  ~/.config/i3/i3blocks.conf
 }
+
+
+
+
+
+
+
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
@@ -200,19 +233,31 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 #startup apps#
 ##############
 exec_always --no-startup-id nm-applet
-exec gnome-terminal
+exec terminator
 exec firefox
-exec Thunar
-exec feh --bg-scale /home/mega/Downloads/Green.jpg
+exec feh --bg-scale /home/freeze/Downloads/Green.jpg
 ###############
 #apps assigned#
 ###############
-assign[class ="Gnome-terminal"]$ws1
-assign[class ="Firefox"]$ws2
-assign[class ="Thunar"]$ws3
+assign[class ="Terminator"]$ws1
+assign[class ="firefox"]$ws2
+
+#assign[class =""]$ws6
+assign[class ="Eclipse"]$ws3
+assign[class ="Codeblocks"]$ws3
+assign[class ="jetbrains-idea-ce"]$ws3
+#assign[class =""]$ws6
+#assign[class =""]$ws6
+
+
+
+
+
 assign[class ="Stremio"]$ws4
 assign[class ="TelegramDesktop"]$ws5
 assign[class ="Bettergram"]$ws5
+assign[class ="Thunar"]$ws6
+
 
 #assign[class =""]$ws6
 assign[class ="Eclipse"]$ws6
