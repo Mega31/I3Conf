@@ -244,12 +244,13 @@ exec feh --bg-scale /home/freeze/Downloads/Green.jpg
 assign[class ="Terminator"]$ws1
 assign[class ="firefox"]$ws2
 
-#assign[class =""]$ws6
+assign[class ="Code"]$ws3
 assign[class ="Eclipse"]$ws3
 assign[class ="Codeblocks"]$ws3
 assign[class ="jetbrains-idea-ce"]$ws3
+assign[class ="java-lang-Thread"]$ws3
 #assign[class =""]$ws6
-#assign[class =""]$ws6
+
 
 
 
